@@ -54,7 +54,7 @@ jobs:
             dist/version.json
           if-no-files-found: error
 
-      - name: Publish GitHub Pages
+      - name: Publish GitHub Pages branch
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -62,6 +62,26 @@ jobs:
           publish_dir: _site
           force_orphan: true
           commit_message: Deploy Gravity Force site and extension zip
+
+      - name: Publish site files on main
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          cp _site/index.html index.html
+          cp _site/styles.css styles.css
+          cp _site/favicon.svg favicon.svg
+          cp _site/404.html 404.html
+          cp _site/gravity-force-extension.zip gravity-force-extension.zip
+          cp _site/version.json version.json
+          touch .nojekyll
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html styles.css favicon.svg 404.html gravity-force-extension.zip version.json .nojekyll
+          if git diff --staged --quiet; then
+            echo "site files unchanged"
+          else
+            git commit -m "Publish GitHub Pages artifacts [skip ci]"
+            git push
+          fi
 
       - name: Publish GitHub Release
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
