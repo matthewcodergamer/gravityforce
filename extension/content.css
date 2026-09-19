@@ -1,20 +1,78 @@
 #gf-chip {
   position: fixed;
-  right: 12px;
-  bottom: 12px;
+  right: 14px;
+  bottom: 14px;
   z-index: 2147483646;
-  height: 36px;
-  padding: 0 12px;
-  border: 0;
-  border-radius: 999px;
-  background: rgba(18, 22, 28, 0.92);
-  color: #e7ebe6;
-  font: 12px/36px "Segoe UI", system-ui, sans-serif;
-  letter-spacing: 0.02em;
+  min-height: 42px;
+  padding: 0 16px 0 38px;
+  border: 1px solid rgba(141, 227, 38, .42);
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(12, 19, 23, .97), rgba(5, 10, 13, .96));
+  color: #edf5ee;
+  font: 600 12px/1.35 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  letter-spacing: .015em;
   cursor: pointer;
-  box-shadow: 0 0 0 1px rgba(164, 196, 138, 0.35);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, .4), 0 0 18px rgba(118, 185, 0, .12), inset 0 1px rgba(255, 255, 255, .04);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+  isolation: isolate;
+}
+
+#gf-chip::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  width: 18px;
+  height: 16px;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, transparent 0 22%, #8de326 23% 27%, transparent 28% 39%, #8de326 40% 44%, transparent 45% 55%, #8de326 56% 60%, transparent 61%);
+  background-size: 18px 16px;
+  filter: drop-shadow(0 0 4px rgba(141, 227, 38, .75));
+  animation: gf-heartbeat 1.35s ease-in-out infinite;
+}
+
+#gf-chip::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(110deg, transparent 15%, rgba(141, 227, 38, .08) 50%, transparent 82%);
+  background-size: 220% 100%;
+  animation: gf-scan 5s linear infinite;
+  pointer-events: none;
 }
 
 #gf-chip:hover {
-  color: #b6e08a;
+  border-color: rgba(141, 227, 38, .8);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, .48), 0 0 26px rgba(118, 185, 0, .22);
+  transform: translateY(-2px);
+}
+
+#gf-chip:focus-visible {
+  outline: 2px solid #8de326;
+  outline-offset: 3px;
+}
+
+@keyframes gf-heartbeat {
+  0%, 100% { opacity: .72; transform: translateY(-50%) scaleY(.88); }
+  12% { opacity: 1; transform: translateY(-50%) scaleY(1.14); }
+  24% { opacity: .8; transform: translateY(-50%) scaleY(.94); }
+  36% { opacity: 1; transform: translateY(-50%) scaleY(1.22); }
+  52% { opacity: .74; transform: translateY(-50%) scaleY(.86); }
+}
+
+@keyframes gf-scan {
+  from { background-position: 120% 0; }
+  to { background-position: -120% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #gf-chip, #gf-chip::before, #gf-chip::after { animation: none; transition: none; }
+}
+
+@media (max-width: 600px) {
+  #gf-chip { right: 10px; bottom: 10px; max-width: calc(100vw - 20px); padding-right: 12px; font-size: 11px; }
 }
