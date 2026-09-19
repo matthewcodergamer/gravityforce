@@ -10,6 +10,11 @@
   background: rgba(18, 22, 28, 0.92);
   color: #e7ebe6;
   font: 12px/36px "Segoe UI", system-ui, sans-serif;
+  letter-spacing: 0.02em;
   cursor: pointer;
   box-shadow: 0 0 0 1px rgba(164, 196, 138, 0.35);
+}
+
+#gf-chip:hover {
+  color: #b6e08a;
 }

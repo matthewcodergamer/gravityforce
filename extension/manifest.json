@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Gravity Force",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Bandwidth Investigation Mode for GeForce NOW. Independent overlay — not affiliated with NVIDIA.",
   "action": {
     "default_title": "Gravity Force",
@@ -19,7 +19,10 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "permissions": ["storage", "activeTab"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage", "activeTab", "contextMenus", "scripting"],
   "host_permissions": ["https://play.geforcenow.com/*"],
   "content_scripts": [
     {
@@ -28,5 +31,24 @@
       "css": ["content.css"],
       "run_at": "document_idle"
     }
-  ]
+  ],
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+G",
+        "mac": "Command+Shift+G"
+      },
+      "description": "Open Gravity Force"
+    },
+    "snapshot": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Log a bandwidth snapshot"
+    },
+    "copy-stats": {
+      "description": "Copy last captured stats"
+    }
+  }
 }

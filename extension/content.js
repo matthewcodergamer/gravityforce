@@ -1,6 +1,7 @@
 (function () {
   if (window.__gravityForceChip) return;
   window.__gravityForceChip = true;
+
   const chip = document.createElement("button");
   chip.type = "button";
   chip.id = "gf-chip";
@@ -8,6 +9,11 @@
   chip.addEventListener("click", () => {
     const text = document.body.innerText || "";
     const mbps = [...text.matchAll(/(\d+(?:\.\d+)?)\s*Mbps/gi)].map((m) => m[1]);
+    chrome.runtime.sendMessage({
+      type: "gf-scan",
+      mbps,
+      title: document.title,
+    });
     chip.textContent =
       mbps.length >= 2
         ? `Found ${mbps[0]} / ${mbps[1]} Mbps — open the popup`

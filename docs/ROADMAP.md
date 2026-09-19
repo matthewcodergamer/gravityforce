@@ -15,18 +15,18 @@ GeForce NOW’s actual bandwidth behavior is a first-class investigation, not a 
 ## Phase 2 — Website
 
 - Design system (Steam overlay + NVIDIA HUD)
-- Dashboard
-- Basic diagnostics
-- Controller testing interface
+- GitHub Pages site: https://matthewcodergamer.github.io/gravityforce/
+- Dashboard / investigation calculator
+- Extension download
 - Responsive layouts
 
 ## Phase 3 — Extension
 
-- Chrome extension
-- Shared packages
-- Popup and settings
-- Supported GeForce NOW page enhancements
-- Compatibility tests
+- Chrome extension (Manifest V3)
+- GitHub Actions packs `gravity-force-extension.zip` on every `main` push
+- GitHub Release attaches the zip
+- Popup capture, page scan, keyboard actions
+- Compatibility tests against NVIDIA overlay labels
 
 ## Phase 4 — Optimization
 

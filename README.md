@@ -6,6 +6,17 @@ Gravity Force does not claim to make GeForce NOW faster. It measures what is hap
 
 Not affiliated with NVIDIA. Do not present this product as an official NVIDIA application.
 
+## Links
+
+| What | URL |
+| --- | --- |
+| Website | https://matthewcodergamer.github.io/gravityforce/ |
+| Extension zip | https://matthewcodergamer.github.io/gravityforce/gravity-force-extension.zip |
+| Latest release | https://github.com/matthewcodergamer/gravityforce/releases/latest |
+| GitHub Actions | https://github.com/matthewcodergamer/gravityforce/actions |
+
+[![Build extension and GitHub Pages](https://github.com/matthewcodergamer/gravityforce/actions/workflows/build.yml/badge.svg)](https://github.com/matthewcodergamer/gravityforce/actions/workflows/build.yml)
+
 ## First network feature
 
 **Bandwidth Investigation Mode** is the first network-related feature, not a secondary add-on.
@@ -21,6 +32,18 @@ It records:
 - Troubleshooting recommendations based on evidence
 
 If the extension cannot read those statistics directly, users enter the diagnostic values or follow a guided capture.
+
+## Chrome extension
+
+Sideload until the Chrome Web Store listing exists.
+
+1. Download `gravity-force-extension.zip`
+2. Unzip it
+3. Open `chrome://extensions`
+4. Enable Developer mode
+5. Load unpacked → select the folder that contains `manifest.json`
+
+Pack it locally with `python3 scripts/pack-extension.py`. GitHub Actions packs the same zip on every push to `main`, publishes it to GitHub Pages, and attaches it to the versioned GitHub Release.
 
 ## Overlay language
 
@@ -40,10 +63,6 @@ Gravity Force. Rename later without rebuilding the product. Chromerty is not use
 - [Network diagnostics](docs/NETWORK_DIAGNOSTICS.md)
 - [Controller support](docs/CONTROLLER_SUPPORT.md)
 - [Security and privacy](docs/SECURITY_AND_PRIVACY.md)
-
-## Development
-
-This repository currently holds product foundation and investigation-mode design. The live prototype is the Bandwidth Investigation overlay: capture sessions, compare utilization, and tell a quality cap from a real path problem.
 
 ## Official GeForce NOW references
 
