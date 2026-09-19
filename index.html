@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gravity Force — Bandwidth Investigation for GeForce NOW</title>
+    <meta
+      name="description"
+      content="Independent Bandwidth Investigation Mode for GeForce NOW. Record available vs used bandwidth, compare sessions, and tell a quality cap from a real path problem."
+    />
+    <meta name="theme-color" content="#0a0c0e" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="canonical" href="https://matthewcodergamer.github.io/gravityforce/" />
+    <meta property="og:title" content="Gravity Force" />
+    <meta
+      property="og:description"
+      content="Measure what GeForce NOW is actually doing. Chrome extension + investigation overlay. Not affiliated with NVIDIA."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://matthewcodergamer.github.io/gravityforce/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="wrap top">
+      <a class="brand" href="./">
+        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true" fill="none">
+          <circle cx="16" cy="16" r="13" stroke="#a4c48a" stroke-width="1" opacity="0.28" />
+          <circle cx="16" cy="16" r="8.5" stroke="#a4c48a" stroke-width="1.2" opacity="0.55" />
+          <circle cx="16" cy="16" r="2.4" fill="#b6e08a" />
+        </svg>
+        <div>
+          <strong>GRAVITY FORCE</strong>
+          <span>Bandwidth Investigation</span>
+        </div>
+      </a>
+      <nav class="nav">
+        <a href="#download">Download</a>
+        <a href="#install">Install</a>
+        <a href="#investigate">Investigate</a>
+        <a href="https://github.com/matthewcodergamer/gravityforce">GitHub</a>
+      </nav>
+    </header>
+
+    <main class="wrap">
+      <section class="hero">
+        <div>
+          <p class="kicker">Chrome extension · v0.2.0</p>
+          <h1>Measure what GeForce NOW is actually doing.</h1>
+          <p class="lede">
+            Gravity Force does not claim to make GeForce NOW faster. It records the
+            bandwidth NVIDIA reports as available and used, calculates utilization,
+            compares sessions, and recommends the next check from evidence — not
+            guesswork.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="./gravity-force-extension.zip" download>
+              Download extension
+            </a>
+            <a
+              class="btn btn-ghost"
+              href="https://github.com/matthewcodergamer/gravityforce/releases/latest"
+            >
+              GitHub Release
+            </a>
+          </div>
+          <p class="fine">
+            Independent. Not affiliated with NVIDIA. Not on the Chrome Web Store yet —
+            sideload the unpacked zip.
+          </p>
+        </div>
+        <aside class="hud" aria-label="Example statistics overlay">
+          <div class="hud-top">
+            <span>Statistics</span>
+            <span class="live">Live</span>
+          </div>
+          <p class="fps" id="hud-fps">60<span>FPS</span></p>
+          <p class="meta">1080p · 60 Hz</p>
+          <dl>
+            <div class="row">
+              <dt>Available</dt>
+              <dd id="hud-available">92.0 Mbps</dd>
+            </div>
+            <div class="row">
+              <dt>Used</dt>
+              <dd id="hud-used">11.4 Mbps</dd>
+            </div>
+            <div class="row hot">
+              <dt>Utilization</dt>
+              <dd id="hud-util">12.4%</dd>
+            </div>
+            <div class="row">
+              <dt>Latency</dt>
+              <dd id="hud-ping">22 ms</dd>
+            </div>
+          </dl>
+        </aside>
+      </section>
+
+      <div class="stats">
+        <div class="stat">
+          <p>Available</p>
+          <b>What GFN reports</b>
+        </div>
+        <div class="stat">
+          <p>Used</p>
+          <b>What the stream consumes</b>
+        </div>
+        <div class="stat">
+          <p>Utilization</p>
+          <b>Used ÷ available</b>
+        </div>
+      </div>
+
+      <section id="download">
+        <h2>Extension download</h2>
+        <p class="sub">
+          Manifest V3. Popup capture, page scan, keyboard actions. If NVIDIA’s
+          overlay cannot be read, type the numbers.
+        </p>
+        <div class="grid">
+          <article class="card">
+            <h3>GitHub Pages zip</h3>
+            <p>
+              Built by GitHub Actions on every push to main. Same file the website
+              serves here.
+            </p>
+            <p>
+              <a href="./gravity-force-extension.zip" download>gravity-force-extension.zip</a>
+            </p>
+          </article>
+          <article class="card">
+            <h3>GitHub Release</h3>
+            <p>
+              Tagged from the extension manifest version. Use this if you want a
+              permanent download URL.
+            </p>
+            <p>
+              <a href="https://github.com/matthewcodergamer/gravityforce/releases/latest"
+                >Latest release</a
+              >
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="install">
+        <h2>Install in Chrome</h2>
+        <p class="sub">Four steps. Developer mode is required until this is on the Chrome Web Store.</p>
+        <div class="card">
+          <ol class="steps">
+            <li>Download and unzip <code>gravity-force-extension.zip</code>.</li>
+            <li>Open <code>chrome://extensions</code>.</li>
+            <li>Turn on Developer mode.</li>
+            <li>Load unpacked and select the folder that contains <code>manifest.json</code>.</li>
+          </ol>
+          <p>
+            Toolbar icon or Ctrl+Shift+G / ⌘⇧G opens the popup. Ctrl+Shift+Y / ⌘⇧Y
+            scans the current GeForce NOW page for Mbps labels.
+          </p>
+        </div>
+      </section>
+
+      <section id="investigate">
+        <h2>Bandwidth Investigation Mode</h2>
+        <p class="sub">
+          First network feature. Enter the numbers from GeForce NOW diagnostics and
+          get a verdict that distinguishes spare headroom from a real problem.
+        </p>
+        <div class="panel">
+          <form id="form" class="fields">
+            <div class="two">
+              <label>
+                Available (Mbps)
+                <input id="available" type="number" min="0" step="0.1" value="89.1" required />
+              </label>
+              <label>
+                Used (Mbps)
+                <input id="used" type="number" min="0" step="0.1" value="10.2" required />
+              </label>
+            </div>
+            <div class="two">
+              <label>
+                Picture
+                <select id="symptom">
+                  <option value="fine">Looks fine</option>
+                  <option value="blurry">Blurry</option>
+                  <option value="stuttering">Stuttering</option>
+                  <option value="lagging">Lagging</option>
+                </select>
+              </label>
+              <label>
+                Resolution
+                <select id="resolution">
+                  <option>1080p</option>
+                  <option>720p</option>
+                  <option>1440p</option>
+                  <option>4K</option>
+                </select>
+              </label>
+            </div>
+            <button class="investigate" type="submit">Investigate</button>
+          </form>
+          <div class="verdict" id="result">
+            <b>10.2 / 89.1 Mbps · 11.4%</b>
+            <p>
+              Low utilization looks normal. GeForce NOW is not trying to fill the
+              pipe. Spare capacity is headroom, not a defect.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <p>Gravity Force. Independent investigation platform. Not affiliated with NVIDIA.</p>
+        <p>
+          <a href="https://github.com/matthewcodergamer/gravityforce">Repository</a>
+          ·
+          <a href="https://github.com/matthewcodergamer/gravityforce/actions">Actions</a>
+          ·
+          <a href="https://github.com/matthewcodergamer/gravityforce/blob/main/docs/PRODUCT_VISION.md"
+            >Vision</a
+          >
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      function utilization(available, used) {
+        if (!(available > 0) || used < 0) return 0;
+        return Math.round((used / available) * 1000) / 10;
+      }
+
+      function diagnose(available, used, symptom) {
+        const util = utilization(available, used);
+        if (used > available * 1.05) {
+          return {
+            title: "Numbers don't line up",
+            detail: "Used is higher than available. Re-read both labels from the same moment.",
+          };
+        }
+        if (symptom === "fine" && util < 45) {
+          return {
+            title: "Low utilization looks normal",
+            detail: "GeForce NOW is not trying to fill the pipe. Spare capacity is headroom, not a defect.",
+          };
+        }
+        if (symptom === "blurry" && util < 45) {
+          return {
+            title: "Headroom exists, picture is soft",
+            detail: "More likely a quality cap, Auto/Smooth fallback, or membership limit than a thin ISP plan.",
+          };
+        }
+        if ((symptom === "stuttering" || symptom === "lagging") && util < 70) {
+          return {
+            title: "Timing, not a thin pipe",
+            detail: "Stutter with unused capacity usually points at ping, jitter, loss, or the device.",
+          };
+        }
+        if (util >= 85 && symptom !== "fine") {
+          return {
+            title: "Sitting on the ceiling",
+            detail: "The stream is consuming nearly all bandwidth GFN says is available.",
+          };
+        }
+        return {
+          title: "Logged",
+          detail: "Compare a second session before treating this as a pattern.",
+        };
+      }
+
+      const form = document.getElementById("form");
+      const result = document.getElementById("result");
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const available = Number(document.getElementById("available").value);
+        const used = Number(document.getElementById("used").value);
+        const symptom = document.getElementById("symptom").value;
+        const util = utilization(available, used);
+        const verdict = diagnose(available, used, symptom);
+        result.innerHTML = `<b>${used} / ${available} Mbps · ${util}%</b><p><strong>${verdict.title}.</strong> ${verdict.detail}</p>`;
+      });
+
+      const hud = { fps: 60, available: 92, used: 11.4, ping: 22 };
+      function tickHud() {
+        hud.available = Math.max(40, hud.available + (Math.random() - 0.5) * 1.4);
+        hud.used = Math.max(4, hud.used + (Math.random() - 0.5) * 0.6);
+        hud.ping = Math.max(12, hud.ping + (Math.random() - 0.5) * 2);
+        hud.fps = 58 + Math.round(Math.random() * 4);
+        document.getElementById("hud-fps").innerHTML = `${hud.fps}<span>FPS</span>`;
+        document.getElementById("hud-available").textContent = `${hud.available.toFixed(1)} Mbps`;
+        document.getElementById("hud-used").textContent = `${hud.used.toFixed(1)} Mbps`;
+        document.getElementById("hud-util").textContent = `${utilization(hud.available, hud.used)}%`;
+        document.getElementById("hud-ping").textContent = `${Math.round(hud.ping)} ms`;
+      }
+      setInterval(tickHud, 900);
+    </script>
+  </body>
+</html>
